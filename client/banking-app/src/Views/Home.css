@@ -1,0 +1,26 @@
+#homeCont{
+
+    height: inherit;
+    width: inherit;
+    display: flex;
+    scroll-behavior: smooth;
+
+    justify-content: center;
+    
+    
+}
+
+.users_infoCont{
+
+    margin-bottom: 100vh;
+    padding-top: 70vh;
+    height: inherit;
+    width: inherit;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+
+    align-items: center;
+    
+}
+

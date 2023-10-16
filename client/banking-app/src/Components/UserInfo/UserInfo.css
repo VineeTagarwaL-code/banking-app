@@ -1,0 +1,50 @@
+#user_cont{
+    
+    display: flex;
+    
+    margin-bottom: 10vh;
+    width: 700px;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 15px;
+    border-radius: 12px;
+    background-color: var(--bg-color);
+    -webkit-box-shadow: -1px 11px 18px 3px rgba(0, 0, 0, 0.1);
+    -moz-box-shadow: -1px 11px 18px 3px rgba(0, 0, 0, 0.1);
+    box-shadow: -1px 11px 18px 3px rgba(0, 0, 0, 0.1);
+}
+.userInfo{
+    display: flex;
+    align-items: center;
+    gap: 11px;
+}
+
+ion-icon{
+    font-size: 30px;
+    color: var(--electric-blue);
+}
+
+h2{
+    font-size: 25px;
+    color: var(--bg-content-color);
+    font-family: var(--font);
+}
+#inputCont{
+  
+  flex-direction: column;
+  display: flex;
+  gap: 10px;
+}
+#inputLabel{
+    font-size: 18px;
+    color: var(--bg-content-color);
+    font-family: var(--font);
+}
+#input{
+    border-radius: 4px;
+    outline: 0;
+    font-family: var(--font);
+    padding: 5px 10px;
+    border: 1px solid rgba(49,72,212 , .6);
+    color: var(--electric-blue);
+}

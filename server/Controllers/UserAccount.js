@@ -1,6 +1,7 @@
 
 const asyncWrap = require('../MiddleWare/async')
 const users = require('../Models/User')
+const { v4: uuidv4 } = require('uuid');
 
 const getAllAccounts = asyncWrap( async(req , res)=>{
     users.find().then((response) => {
@@ -22,16 +23,18 @@ const getSingleAccount = asyncWrap(async(req , res)=>{
     }
 })
 const transfer = asyncWrap(async(req , res)=>{
-    const{credit,name} = req.params;
+
+    const{credit,uniqueId} = req.params;
     parseInt(credit)
-    console.log(typeof(credit))
-    const user =  await users.findOne({name:name}) 
+     console.log(credit , uniqueId)
+    const user =  await users.findOne({uniqueId:uniqueId}) 
+
     console.log(typeof(user.Balance))
     const amount = user.Balance + parseInt(credit) ;
 
     console.log(credit)
   const UpdatedUser =  await users.findOneAndUpdate(
-        { name: name }, 
+        { uniqueId: uniqueId }, 
         { Balance: amount  }, 
         { new: true }, 
   )
@@ -41,9 +44,11 @@ const transfer = asyncWrap(async(req , res)=>{
 
 
 const createAccount = asyncWrap(async(req , res)=>{
+    const uniqueId = uuidv4();
     const{Username} = req.body;
     const newUser = new users({
-        name:Username
+        name:Username,
+        uniqueId:uniqueId
     })
     await newUser.save().then(()=>{
         return res.status(201).json({status:"added" , user:newUser})
