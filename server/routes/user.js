@@ -7,8 +7,8 @@ const { getAllAccounts,
 
 router.route('/create').post(createAccount)
 router.route('/view').get(getAllAccounts)
-router.route('/view:id').get(getSingleAccount)
-router.route('/transfer:id').post(transfer)
+router.route('/view/:name').get(getSingleAccount)
+router.route('/transfer/:credit/:name').post(transfer)
 
 
 module.exports = router
