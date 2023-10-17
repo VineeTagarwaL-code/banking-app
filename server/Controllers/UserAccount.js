@@ -24,7 +24,7 @@ const getSingleAccount = asyncWrap(async(req , res)=>{
 })
 const transfer = asyncWrap(async(req , res)=>{
 
-    const{credit,uniqueId} = req.params;
+    const{credit,uniqueId} = req.body;
     parseInt(credit)
      console.log(credit , uniqueId)
     const user =  await users.findOne({uniqueId:uniqueId}) 
