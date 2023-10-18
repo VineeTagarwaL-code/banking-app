@@ -39,6 +39,8 @@ const transfer = asyncWrap(async(req , res)=>{
         { new: true }, 
   )
 
+  return res.json({status:200 , response : UpdatedUser})
+
   console.log(UpdatedUser)
 })
 

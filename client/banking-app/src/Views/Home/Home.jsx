@@ -1,18 +1,21 @@
 import React, { useState, useEffect } from 'react'
 import './Home.css'
 import axios from 'axios';
-
-import Navbar from '../Components/Navbar/Navbar';
-function Home({ url }) {
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import Navbar from '../../Components/Navbar/Navbar';
+function Home({ url , record }) {
+ 
 
 
   const [amount, setAmount] = useState("")
   const [user, setUser] = useState([])
-
+  const[isOpen , setIsopen] = useState(false)
   const [index, setIndex] = useState(0)
 
 
   const getAllUsers = async () => {
+   
     await axios.get(`${url}/view`).then((res) => {
       setUser(res.data.response)
     }).catch((error) => {
@@ -20,16 +23,25 @@ function Home({ url }) {
     })
   }
 
+
+  const TransferSucess = () => {
+    toast.success(`Transfer to ${user[index].name} successfull `)
+  }
+
   const transferMoney = async (index) => {
-    console.log(index , amount)
-    console.log(user[index].name)
+
 
     await axios.post(`${url}/transfer`,{
       credit:amount,
       uniqueId:user[index].uniqueId
     }).then((res)=>{
-
-      getAllUsers();
+      TransferSucess()
+      record.push({
+        user:user[index].name , 
+        transferBy:"admin",
+        amount:amount
+      })
+      console.log(res)
      }).catch((error)=>{
       console.log("some error occured" , error)
      })
@@ -45,9 +57,10 @@ function Home({ url }) {
   // useEffect(() => {
   //   console.log(index);
   // }, [index])
-  useEffect(() => {
-    getAllUsers();
-  }, [user]);
+  // useEffect(() => {
+    
+  //   getAllUsers();
+  // }, [user]);
 
   const handleTransferClick = (index)=>{
   
@@ -55,7 +68,7 @@ function Home({ url }) {
   }
   return (
     <div id="homeCont">
-  
+   <ToastContainer />
       <div className='users_infoCont'>
         {
           user.map((singleUser, index) => {
@@ -85,31 +98,52 @@ function Home({ url }) {
           <div className="modal-dialog">
             <div className="modal-content">
               <div className="modal-header">
-                <h1 className="modal-title fs-5" id="exampleModalLabel">Transfer Money</h1>
+                {user[index] &&                <h1 className="modal-title fs-5" id="exampleModalLabel">Account Details of </h1> }
+
                 <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
               </div>
               <div className="modal-body">
+                {user[index] &&
+                       <div id="accountDetails">
+                       <h5>Account name : {user[index].name===undefined ? "":user[index].name }</h5>
+                       <h5>Account Balance : {user[index].Balance===undefined ? "":user[index].Balance }</h5>
+                       {
+                         isOpen || <button type="button" className="btn btn-success" onClick={()=>{setIsopen(!isOpen)}}>Transfer</button>
+                         
+                       }
+                       </div>}
+                
+         
                 <div id='inputCont'>
+                { isOpen ? ( <>
                   <label id='inputLabel'>Enter Amount : </label>
-                  <input
-                    type='number'
-                    id='input'
-                    value={amount}
-                    onChange={(e) => {
-                      setAmount(e.target.value)
-                    }} />
+                 
+  <input
+  type='number'
+  id='input'
+  value={amount}
+  onChange={(e) => {
+    setAmount(e.target.value)
+  }} /></>) : ""
+                  }
+                
                 </div>
 
               </div>
-              <div className="modal-footer">
-                <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <button type="button" className="btn btn-success"
-                  onClick={(e) => {
-                    transferMoney(index)
-
-                  }}
-                >Add</button>
-              </div>
+              {
+                  isOpen ? (
+                    <div className="modal-footer">
+                    <button type="button" className="btn btn-secondary" data-bs-dismiss="modal"  onClick={()=>{setIsopen(false)}}>Close</button>
+                    <button type="button" className="btn btn-success"
+                      onClick={(e) => {
+                        transferMoney(index)
+    
+                      }}
+                    >Add</button>
+                  </div>
+                  ) :""
+              }
+        
             </div>
           </div>
         </div>
