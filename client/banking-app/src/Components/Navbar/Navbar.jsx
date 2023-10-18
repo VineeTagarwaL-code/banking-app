@@ -1,6 +1,16 @@
 import React from 'react'
-
+import { BrowserRouter as Router, Routes, Route, Link , useNavigate  } from 'react-router-dom';
 function Navbar() {
+  const navigate = useNavigate();
+  const navigateToHome = ()=>{
+    navigate('/')
+  }
+
+  const navigateTransfer = ()=>{
+   navigate('/transferTable')
+  } 
+
+
   return (
     <nav className="navbar navbar-expand-lg bg-body-tertiary">
   <div className="container-fluid">
@@ -11,7 +21,10 @@ function Navbar() {
     <div className="collapse navbar-collapse" id="navbarSupportedContent">
       <ul className="navbar-nav me-auto mb-2 mb-lg-0">
         <li className="nav-item">
-          <a className="nav-link active" aria-current="page" href="#">Home</a>
+          <a className="nav-link active" aria-current="page" onClick={()=>navigateToHome()} style={{ "cursor": "pointer"}}>Home</a>
+        </li>
+        <li className="nav-item">
+          <a className="nav-link active" aria-current="page" onClick={()=>navigateTransfer()} style={{ "cursor": "pointer"}}>Transfer Table</a>
         </li>
        
       </ul>

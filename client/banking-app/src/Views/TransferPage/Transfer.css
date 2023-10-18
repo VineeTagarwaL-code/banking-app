@@ -1,0 +1,28 @@
+/* Transfer.css */
+.tranferCont {
+    margin: 20px;
+  }
+  
+  #transferTable {
+    border-collapse: collapse;
+    width: 100%;
+  }
+  
+  #transferTable th, #transferTable td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+  }
+  
+  #transferTable th {
+    background-color: #f2f2f2;
+  }
+  
+  #transferTable tr:nth-child(even) {
+    background-color: #f2f2f2;
+  }
+  
+  #transferTable tr:hover {
+    background-color: #ddd;
+  }
+  
